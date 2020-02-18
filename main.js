@@ -12,16 +12,35 @@
 //lets make an employee profile using closures
 
   function employee (name,salary){
+    var name = name;
+    var salary = salary;
+    var nbrFriends = 0;
+    var friend = [];
     return {
-      name: name,
-      salary: salary,
-      sayMyName: sayMyName,
-      sayHello: sayHello,
-      increaseSalary: increaseSalary,
-      friend: undefined,
-      addFriend: addFriend,
-      nbrFriends: 0,
-      listFriends: listFriends
+      sayMyName: function() {
+        return name;
+      },
+      sayHello : function (){
+        return "Hello " + name;
+      },
+      increaseSalary : function (n){
+        salary += n;
+        return "your salary is " + salary;
+      },
+      addFriend : function (employees) {  
+        if (!friend.includes(employees.sayMyName())){
+          friend.push(employees.sayMyName());
+        }
+        nbrFriends += 1;
+        str= "you just became friend with " + friend[0];
+        for (var i=1 ; i< friend.length ; i++){
+          return str += " and " + friend[i]
+        }
+        return str;
+      },
+      listFriends : function () {
+        return "you have " + nbrFriends + " friends";
+      }
     }   
   }
 
@@ -31,50 +50,31 @@
 
 
   //create a function when invoked returns the name of that employee.
-  function sayMyName() {
-    return this.name;
-  }
+  
 
   // employeeA.sayMyName(); // "jack"
   // employeeB.sayMyName(); // "Mark"
 
 
   //now modify that closure and add a function that says hello to the employee name;
-function sayHello(){
-  return "Hello " + this.name;
-}
+
   // employeeA.sayHello(); // hello jack
   // employeeB.sayHello(); // hello Mark
 
   //modify your closure and add function increaseSalary that increases the salary for the employee by n value and return it.
   //employeeA.increaseSalary(50); // "your salary is 150$"
 
-  function increaseSalary(n){
-    this.salary += n;
-    return "your salary is " + this.salary;
-  }
+  
   //how about we let jack and mark meet togther!
   //modify your closure and add function addFriend that accepts an object as a parameter, and let jack meets his friends.
 
-  function addFriend (employees) {
-    if (this.friend === undefined){
-      this.friend = employees.name;
-      this.nbrFriends = 1;
-      return "you just became friend with " + this.friend;
-    } else {
-      this.friend += " and " + employees.name;
-      this.nbrFriends += 1;
-      return "you just became friend with " + this.friend;
-    }
-  }
+ 
   // employeeA.addFriend(employeeB); // "you just became friend with Mark"
   // employeeA.addFriend(employeeC); // "you just became friend with Mark and Sara"
 
   //modify your closure to tell mark how many friends does he have.
 
-  function listFriends() {
-    return "you have " + this.nbrFriends + " friends";
-  }
+  
   // employeeA.listFriends(); // "you have 2 friends"
 
 
@@ -83,16 +83,7 @@ function sayHello(){
 //=============================================================================
   //lets create a pet class using OOP concept,
   // a - we need to create the pets (lets create only one for now), the invocation should take the name of the pet. 
-  function Pet (initial){
-    return {
-      name: initial,
-      addInfo: addInfo,
-      increaseAge: increaseAge,
-      availability: false,
-      checkState: checkState,
-      changeState: changeState
-    }
-  }
+
   // var pet1 = Pet("doggy");
 
   // b - we need function to add the other info for the pet, called addInfo function. Make sure your functions unneeded memory space
@@ -107,6 +98,18 @@ function sayHello(){
   //    and when called again it will make it false.
   
   // Write your code here .....
+
+  function Pet (initial){
+    return {
+      name: initial,
+      addInfo: addInfo,
+      increaseAge: increaseAge,
+      availability: false,
+      checkState: checkState,
+      changeState: changeState
+    }
+  }
+
   function addInfo (age, owner, gender, species){
     this.age = age;
     this.owner = owner;
